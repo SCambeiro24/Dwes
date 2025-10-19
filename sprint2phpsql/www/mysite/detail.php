@@ -21,7 +21,7 @@ echo "<ul>";
 $query2 = 'SELECT * FROM tComentarios WHERE libro_id='.$id;
 $result2 = mysqli_query($db, $query2) or die('Query error');
 while ($row = mysqli_fetch_array($result2)) {
-    echo "<li>".$row['comentario']."</li>";
+    echo "<li>" . $row['comentario'] . " <em>(" . $row['fecha'] . ")</em></li>";
 }
 echo "</ul>";
 
