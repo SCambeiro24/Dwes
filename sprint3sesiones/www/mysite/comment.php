@@ -1,16 +1,41 @@
 <?php
-$db = mysqli_connect('localhost', 'root', '1234', 'mysitedb') or die('Fail');
+session_start();
 
-$new_comment = $_POST['new_comment'];
-$libro_id = $_POST['libro_id'];
+$db = new mysqli('localhost', 'root', '1234', 'mysitedb');
+if ($db->connect_errno) {
+    die('Error de conexión');
+}
 
-$query = "INSERT INTO tComentarios (comentario, libro_id) VALUES ('$new_comment', $libro_id)";
-mysqli_query($db, $query) or die('Error al insertar comentario');
+$email = isset($_POST['email']) ? trim($_POST['email']) : '';
+$password = isset($_POST['password']) ? $_POST['password'] : '';
 
-$new_id = mysqli_insert_id($db);
-echo "<p>Comentario añadido con ID: $new_id</p>";
-echo "<a href='/detail.php?id=$libro_id'>Volver al libro</a>";
+if ($email === '' || $password === '') {
+    die('Error: completa todos los campos.');
+}
 
-mysqli_close($db);
+$stmt = $db->prepare("SELECT id, contraseña FROM tUsuarios WHERE email = ?");
+$stmt->bind_param("s", $email);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows === 0) {
+    echo "<p style='color:red;'>No existe ningún usuario con ese correo.</p>";
+    echo "<p><a href='login.html'>Volver</a></p>";
+    exit;
+}
+
+$user = $result->fetch_assoc();
+
+if (password_verify($password, $user['contraseña'])) {
+    $_SESSION['user_id'] = $user['id'];
+    header("Location: main.php");
+    exit;
+} else {
+    echo "<p style='color:red;'>Contraseña incorrecta.</p>";
+    echo "<p><a href='login.html'>Volver</a></p>";
+}
+
+$stmt->close();
+$db->close();
 ?>
 
