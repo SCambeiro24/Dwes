@@ -1,12 +1,15 @@
 <?php
+session_start();
+
 $db = mysqli_connect('localhost', 'root', '1234', 'mysitedb') or die('Fail');
 
-// Lanzar una query
 $query = 'SELECT * FROM tLibros';
 $result = mysqli_query($db, $query) or die('Query error');
 
-// Recorrer el resultado
 echo "<h1>Catálogo de libros</h1>";
+
+echo "<p><a href='logout.php'>Cerrar sesión</a></p>";
+
 echo "<ul>";
 while ($row = mysqli_fetch_array($result)) {
     echo "<li>";
@@ -20,4 +23,5 @@ echo "</ul>";
 
 mysqli_close($db);
 ?>
+
 
