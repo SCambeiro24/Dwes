@@ -17,8 +17,6 @@ echo "<img src='" . $only_row['url_imagen'] . "' width='200'><br>";
 echo "<h2>" . $only_row['autor'] . "</h2>";
 echo "<h3>" . $only_row['año'] . "</h3>";
 
-echo "<hr>DEBUG: línea antes de logout<hr>";
-
 echo "<p><a href='logout.php'>Cerrar sesión</a></p>";
 
 echo "<h3>Comentarios:</h3>";
