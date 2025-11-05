@@ -8,10 +8,12 @@
         return $peso / ($altura * $altura);
       }
 
-      if (isset($_GET["peso"]) && isset($_GET["altura"])) {
+      if(isset($_GET["edad"]) && (isset($_GET["peso"]) && isset($_GET["altura"])) {
+	$edad = $_GET["edad"];
         $peso = $_GET["peso"];
         $altura = $_GET["altura"];
         $imc = calcular_imc($peso, $altura);
+
 
         if ($imc < 18.5) {
           echo "IMC: " . $imc . " → Bajo peso";
