@@ -15,6 +15,7 @@
         $imc = calcular_imc($peso, $altura);
 
 
+
         if ($imc < 18.5) {
           echo "IMC: " . $imc . " → Bajo peso";
         } else if ($imc < 25) {
