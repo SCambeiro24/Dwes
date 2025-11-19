@@ -17,6 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from webserviceapp import views
+from webserviceapp.views import devolver_libros
+from webserviceapp.views import devolver_libro_por_id
+from webserviceapp.views import insertar_comentario
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('libros/', devolver_libros),
+    path('libros/<int:id_solicitado>', devolver_libro_por_id),
+    path('libros/<int:id_solicitado>/comentarios', insertar_comentario)
 ]
