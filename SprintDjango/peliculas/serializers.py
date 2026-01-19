@@ -7,9 +7,14 @@ class GeneroSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class PeliculaSerializer(serializers.ModelSerializer):
-
-    genero_nombre = serializers.ReadOnlyField(source='genero.nombre')
-
     class Meta:
         model = Pelicula
-        fields = ['id', 'titulo', 'sinopsis', 'fecha_estreno', 'duracion_minutos', 'precio_alquiler', 'genero_nombre']
+        fields = ['id', 'titulo', 'sinopsis', 'fecha_estreno', 'duracion_minutos', 'precio_alquiler', 'genero']
+        extra_kwargs = {
+            'id': {'read_only': True}
+        }
+
+    def validate_precio_alquiler(self, value):
+        if value < 0:
+            raise serializers.ValidationError("El precio de alquiler no puede ser negativo")
+        return value
