@@ -10,6 +10,13 @@ class PeliculaListAPIView(APIView):
         serializer = PeliculaSerializer(peliculas, many=True)
         return Response(serializer.data)
 
+    def post(self, request):
+        serializer = PeliculaSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 class PeliculaDetailAPIView(APIView):
     def get(self, request, pk):
         try:
