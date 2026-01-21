@@ -1,7 +1,13 @@
-from django.urls import path
-from .views import PeliculaListAPIView, PeliculaDetailAPIView
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import PeliculaViewSet, GeneroViewSet
 
+# Definimos el router y registramos los ViewSets
+router = DefaultRouter()
+router.register(r'peliculas', PeliculaViewSet, basename='pelicula')
+router.register(r'generos', GeneroViewSet, basename='genero')
+
+# Las URLs finales se generan automáticamente
 urlpatterns = [
-    path('api/peliculas/', PeliculaListAPIView.as_view()),       # Para lista y POST
-    path('api/peliculas/<int:pk>/', PeliculaDetailAPIView.as_view()), # Para el detalle
+    path('', include(router.urls)),
 ]
