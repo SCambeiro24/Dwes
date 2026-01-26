@@ -26,22 +26,17 @@ class ReseñaSerializer(serializers.ModelSerializer):
 
 # 4. El Recurso Principal
 class PeliculaSerializer(serializers.ModelSerializer):
-    # Lectura rica: devuelve el objeto género completo
     genero_detalle = GeneroSerializer(source='genero', read_only=True)
-
-    # Escritura sencilla: acepta solo el ID del género
     genero = serializers.PrimaryKeyRelatedField(
         queryset=Genero.objects.all(),
         write_only=True
     )
-
-    # N:M con datos extra
     reseñas = ReseñaSerializer(many=True, read_only=True)
 
     class Meta:
         model = Pelicula
         fields = [
-            'id', 'titulo', 'sinopsis', 'duracion_minutos',
+            'id', 'titulo', 'sinopsis', 'fecha_estreno', 'duracion_minutos',
             'precio_alquiler', 'genero', 'genero_detalle', 'reseñas'
         ]
 
