@@ -1,9 +1,13 @@
 from django.contrib.auth.models import User
 from rest_framework.viewsets import ModelViewSet
 from .models import Pelicula, Genero, Reseña, Perfil
-from .serializers import ( PeliculaSerializer, GeneroSerializer, ReseñaSerializer,  PerfilSerializer, UserSerializer)
-
-# ModelViewSet incluye automáticamente: list, retrieve, create, update y destroy
+from .serializers import (
+    PeliculaSerializer,
+    GeneroSerializer,
+    ReseñaSerializer,
+    PerfilSerializer,
+    UserSerializer
+)
 
 class PeliculaViewSet(ModelViewSet):
     queryset = Pelicula.objects.all()

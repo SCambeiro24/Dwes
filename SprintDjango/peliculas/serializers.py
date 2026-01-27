@@ -8,7 +8,8 @@ from .models import Pelicula, Genero, Perfil, Reseña
 class PerfilSerializer(serializers.ModelSerializer):
     class Meta:
         model = Perfil
-        fields = ['avatar', 'biografía', 'fecha_nacimiento']
+        # Quitamos 'avatar' porque no existe en tu modelo
+        fields = ['usuario', 'biografia', 'fecha_nacimiento']
 
 
 # 2. Relación 1:N
