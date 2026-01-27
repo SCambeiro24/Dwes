@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from .models import Pelicula, Genero, Perfil, Reseña
 
 
+
 # 1. Relación 1:1
 class PerfilSerializer(serializers.ModelSerializer):
     class Meta:
@@ -23,6 +24,14 @@ class ReseñaSerializer(serializers.ModelSerializer):
         model = Reseña
         fields = ['id', 'usuario', 'pelicula', 'puntuacion', 'comentario', 'created_at']
 
+
+class UserSerializer(serializers.ModelSerializer):
+    # Esto permite ver el perfil anidado dentro del usuario
+    perfil = PerfilSerializer(read_only=True)
+
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email', 'perfil']
 
 # 4. El Recurso Principal
 class PeliculaSerializer(serializers.ModelSerializer):
